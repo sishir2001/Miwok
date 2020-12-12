@@ -15,16 +15,16 @@ public class PhrasesActivity extends AppCompatActivity {
         setContentView(R.layout.words_list);
         // ***** numbers in word arraylist******
         ArrayList<Word> strPhrases = new ArrayList<Word>();
-        strPhrases.add(new Word("minto wuksus","Where are you going?"));
-        strPhrases.add(new Word("tinnә oyaase'nә","What is your name?"));
-        strPhrases.add(new Word("oyaaset...","My name is..."));
-        strPhrases.add(new Word("michәksәs?","How are you feeling?"));
-        strPhrases.add(new Word("kuchi achit","I’m feeling good."));
-        strPhrases.add(new Word("әәnәs'aa?","Are you coming?"));
-        strPhrases.add(new Word("hәә’ әәnәm","Yes, I’m coming."));
-        strPhrases.add(new Word("әәnәm","I’m coming."));
-        strPhrases.add(new Word("yoowutis","Let’s go."));
-        strPhrases.add(new Word("әnni'nem","Come here."));
+        strPhrases.add(new Word("minto wuksus","Where are you going?",R.raw.number_one));
+        strPhrases.add(new Word("tinnә oyaase'nә","What is your name?",R.raw.number_one));
+        strPhrases.add(new Word("oyaaset...","My name is...",R.raw.number_one));
+        strPhrases.add(new Word("michәksәs?","How are you feeling?",R.raw.number_one));
+        strPhrases.add(new Word("kuchi achit","I’m feeling good.",R.raw.number_one));
+        strPhrases.add(new Word("әәnәs'aa?","Are you coming?",R.raw.number_one));
+        strPhrases.add(new Word("hәә’ әәnәm","Yes, I’m coming.",R.raw.number_one));
+        strPhrases.add(new Word("әәnәm","I’m coming.",R.raw.number_one));
+        strPhrases.add(new Word("yoowutis","Let’s go.",R.raw.number_one));
+        strPhrases.add(new Word("әnni'nem","Come here.",R.raw.number_one));
         // ******** added the numbers to ArrayList
 
         // creating the ArrayAdapter which converts the objects into views for Views that recycle views.
