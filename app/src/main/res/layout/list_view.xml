@@ -46,13 +46,14 @@
             android:textColor="@android:color/white"/>
 
     </LinearLayout>
+
     <ImageView
+        android:id="@+id/imgPlay"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        tools:background="@color/orange"
         android:src="@drawable/ic_play"
-        android:id="@+id/imgPlay"/>
+        tools:background="@color/orange" />
 
 
 </LinearLayout>

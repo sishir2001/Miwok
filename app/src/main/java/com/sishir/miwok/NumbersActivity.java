@@ -5,8 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -38,7 +42,19 @@ public class NumbersActivity extends AppCompatActivity {
         // *****
       ListView listView = (ListView)findViewById(R.id.listview);
       listView.setAdapter(itemAdapter);
-
+      // adding clicklisteners for everyItem in an adapterView.
+      listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+          @Override
+          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+              try{
+                  Word obj = itemAdapter.getItem(position);
+                  Toast.makeText(NumbersActivity.this,obj.getMiwokTranslation(),Toast.LENGTH_SHORT).show();
+              }
+              catch(Exception e){
+                  Log.v("NumbersActivity","Some fucking exception");
+              }
+          }
+      });
 
         //********
 
