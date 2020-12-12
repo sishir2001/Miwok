@@ -2,13 +2,17 @@ package com.sishir.miwok;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class FamilyActivity extends AppCompatActivity {
-
+    MediaPlayer mediaPlayer = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,30 @@ public class FamilyActivity extends AppCompatActivity {
         // *****
       ListView listView = (ListView)findViewById(R.id.listview);
         listView.setAdapter(itemAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // playing sound when clicked.
+                try{
+                    Word obj = itemAdapter.getItem(position);
+                    if(mediaPlayer == null) {
+                        mediaPlayer = MediaPlayer.create(FamilyActivity.this, obj.getVoiceId());
+                    }
+                    mediaPlayer.start();
+                    //releasing the resources
+                    if(!mediaPlayer.isPlaying()){
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                    }
+                }
+                catch (NullPointerException ne){
+                    Log.v("NumbersAvtivity","NPE");
+                }
+                catch(Exception e){
+                    Log.v("NumbersActivity","Some fucking exception");
+                }
+            }
+        });
 
     }
 }
