@@ -37,5 +37,8 @@ public class Word {
     public int getVoiceId(){
         return voiceId;
     }
-
+    @Override
+    public String toString(){
+        return "Word { " + MiwokWord + " " + DefaultWord +" "+ imgId + " " +voiceId +"} ";
+    }
 }
