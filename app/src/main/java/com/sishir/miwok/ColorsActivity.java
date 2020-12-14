@@ -43,7 +43,13 @@ public class ColorsActivity extends AppCompatActivity {
                 // playing sound when clicked.
                 try{
                     Word obj = itemAdapter.getItem(position);
-                   // if(mediaPlayer == null) {
+                    // releasing the mediaplayer so that user can change the voice notes.
+                    if(mediaPlayer != null){
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                    }
+
+                    // if(mediaPlayer == null) {
                         mediaPlayer = MediaPlayer.create(ColorsActivity.this, obj.getVoiceId());
                     //}
                     mediaPlayer.start();

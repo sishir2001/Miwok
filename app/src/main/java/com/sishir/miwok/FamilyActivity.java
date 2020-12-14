@@ -44,10 +44,15 @@ public class FamilyActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // playing sound when clicked.
                 try{
+                    // releasing the mediaplayer so that user can change the voice notes.
+                    if(mediaPlayer != null){
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                    }
                     Word obj = itemAdapter.getItem(position);
-                   // if(mediaPlayer == null) {
+                   //if(mediaPlayer == null) {
                         mediaPlayer = MediaPlayer.create(FamilyActivity.this, obj.getVoiceId());
-                   // }
+                   //}
                     mediaPlayer.start();
                     //releasing the resources
                     mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

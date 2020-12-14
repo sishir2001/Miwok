@@ -53,13 +53,18 @@ public class NumbersActivity extends AppCompatActivity {
               try{
                   // TODO below both the lines are useful.
                //   Word obj = strNumbers.get(position);
-
-                    Word obj = itemAdapter.getItem(position);
-                 //writing the current state of the object
+                  Word obj = itemAdapter.getItem(position);
+                  //writing the current state of the object
                   Log.v("NumbersActivity","Current Word "+ obj);
-                  if(mediaPlayer == null) {
+                  // releasing the mediaplayer so that user can change the voice notes.
+                  if(mediaPlayer != null){
+                      mediaPlayer.release();
+                      mediaPlayer = null;
+                  }
+
+                  //if(mediaPlayer == null) {
                       mediaPlayer = MediaPlayer.create(NumbersActivity.this, obj.getVoiceId());
-                    }
+                    //}
                   mediaPlayer.start();
                   //releasing the resources
                  mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
