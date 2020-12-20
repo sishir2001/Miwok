@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,5 +63,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // ****** DONE WITH THE clickListeners**************
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.v("MainActivity","onStart()");
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.v("MainActivity","onResume()");
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        Log.v("MainActivity","onPause");
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.v("MainActivity","onDestroy()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.v("MainActivity","onStop()");
     }
 }
