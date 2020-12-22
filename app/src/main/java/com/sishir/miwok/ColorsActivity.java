@@ -48,6 +48,8 @@ public class ColorsActivity extends AppCompatActivity {
                     Word obj = itemAdapter.getItem(position);
                     // TODO implement the audio focus.
                     //    create a onAudioFocusChangeListener
+                    AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
                     AudioManager.OnAudioFocusChangeListener afChangeListener = new AudioManager.OnAudioFocusChangeListener() {
                         @Override
                         public void onAudioFocusChange(int focusChange) {
@@ -62,6 +64,7 @@ public class ColorsActivity extends AppCompatActivity {
                                     public void onCompletion(MediaPlayer mp) {
                                         mediaPlayer.release();
                                         mediaPlayer = null;
+
                                     }
                                 });
                             }
@@ -80,7 +83,6 @@ public class ColorsActivity extends AppCompatActivity {
                         }
 
                     };
-                    AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
                     int audioReq = audioManager.requestAudioFocus(afChangeListener,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
                     // checking the audio request.
                     if(audioReq == AudioManager.AUDIOFOCUS_REQUEST_GRANTED){
@@ -103,6 +105,8 @@ public class ColorsActivity extends AppCompatActivity {
                             public void onCompletion(MediaPlayer mp) {
                                 mediaPlayer.release();
                                 mediaPlayer = null;
+                                audioManager.abandonAudioFocus(afChangeListener);
+
                             }
                         });
 

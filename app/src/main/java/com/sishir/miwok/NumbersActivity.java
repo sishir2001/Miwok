@@ -114,6 +114,7 @@ public class NumbersActivity extends AppCompatActivity {
                           public void onCompletion(MediaPlayer mp) {
                               mediaPlayer.release();
                               mediaPlayer = null;
+                              audioManager.abandonAudioFocus(afChangeListener);
                           }
                       });
 
