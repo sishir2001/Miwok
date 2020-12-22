@@ -2,12 +2,15 @@ package com.sishir.miwok;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -45,24 +48,72 @@ public class PhrasesActivity extends AppCompatActivity {
                 // playing sound when clicked.
                 try{
                     Word obj = itemAdapter.getItem(position);
-                    // releasing the mediaplayer so that user can change the voice notes.
-                    if(mediaPlayer != null){
-                        mediaPlayer.release();
-                        mediaPlayer = null;
+                    // TODO implement the audio focus.
+                    //    create a onAudioFocusChangeListener
+                    AudioManager.OnAudioFocusChangeListener afChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+                        @Override
+                        public void onAudioFocusChange(int focusChange) {
+                            if(focusChange == AudioManager.AUDIOFOCUS_GAIN_TRANSIENT){
+                                // play the audio.
+                                if(mediaPlayer == null){
+                                    mediaPlayer = MediaPlayer.create(PhrasesActivity.this,obj.getVoiceId());
+                                }
+                                mediaPlayer.start();
+                                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mp) {
+                                        mediaPlayer.release();
+                                        mediaPlayer = null;
+                                    }
+                                });
+                            }
+                            else if(focusChange == AudioManager.AUDIOFOCUS_LOSS){
+                                // stop the music and release the resources
+                                if(mediaPlayer != null){
+                                    mediaPlayer.release();
+                                    mediaPlayer = null;
+                                }
+
+                            }
+                            else if(focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK ){
+                                // pause the music.
+                                mediaPlayer.pause();
+                            }
+                        }
+
+                    };
+                    AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                    int audioReq = audioManager.requestAudioFocus(afChangeListener,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                    // checking the audio request.
+                    if(audioReq == AudioManager.AUDIOFOCUS_REQUEST_GRANTED){
+                        // play the music
+                        //writing the current state of the object
+                        Log.v("PhrasesActivity","Current Word "+ obj);
+                        // releasing the mediaplayer so that user can change the voice notes.
+                        if(mediaPlayer != null){
+                            mediaPlayer.release();
+                            mediaPlayer = null;
+                        }
+
+                        //if(mediaPlayer == null) {
+                        mediaPlayer = MediaPlayer.create(PhrasesActivity.this, obj.getVoiceId());
+                        //}
+                        mediaPlayer.start();
+                        //releasing the resources
+                        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            @Override
+                            public void onCompletion(MediaPlayer mp) {
+                                mediaPlayer.release();
+                                mediaPlayer = null;
+                            }
+                        });
+
+                    }
+                    else if(audioReq == AudioManager.AUDIOFOCUS_REQUEST_FAILED){
+                        // do not play the music.
+                        Toast.makeText(PhrasesActivity.this,"AudioFocus not granted",Toast.LENGTH_SHORT).show();
                     }
 
-                    // if(mediaPlayer == null) {
-                        mediaPlayer = MediaPlayer.create(PhrasesActivity.this, obj.getVoiceId());
-                   // }
-                    mediaPlayer.start();
-                    //releasing the resources
-                   mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                       @Override
-                       public void onCompletion(MediaPlayer mp) {
-                           mediaPlayer.release();
-                           mediaPlayer = null;
-                       }
-                   });
                 }
                 catch (NullPointerException ne){
                     Log.v("NumbersAvtivity","NPE");
