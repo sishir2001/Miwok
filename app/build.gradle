@@ -35,5 +35,10 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    def fragment_version = "1.2.5"
+    // java language implementation
+    implementation "androidx.fragment:fragment:$fragment_version"
+    // kotline language implementation
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
