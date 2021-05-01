@@ -1,2 +1,2 @@
 # Miwok
-A transalation app from english to miwok. It plays am audio file of the user want to know in miwok language. 
+An english to miwok transalation app  . It plays an audio file if the user wants to know the pronounciation.
